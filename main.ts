@@ -16,10 +16,8 @@ const options = {
 
 requestPromise(options)
     .then((body: string) => {
-        new jsdom.JSDOM(body).window.document.querySelectorAll("section").forEach((a) => {
-            for (let i = 0; i < a.children.length; i++) {
-                const c = a.children.item(i)
-                if (c === null || c.textContent === null || c.nextElementSibling === null) continue;
+        new jsdom.JSDOM(body).window.document.querySelectorAll("h3").forEach((c) => {
+                if (c === null || c.textContent === null || c.nextElementSibling === null) return;
                 const inMatch = c.textContent.match(/入力例\s*(\d+)/)
                 if (inMatch) {
                     fs.writeFileSync(
@@ -27,7 +25,7 @@ requestPromise(options)
                         c.nextElementSibling.textContent + '\n',
                         { encoding: 'utf-8'}
                     )
-                    continue;
+                    return
                 } 
                 const outMatch = c.textContent.match(/出力例\s*(\d+)/)
                 if (outMatch) {
@@ -36,10 +34,10 @@ requestPromise(options)
                         c.nextElementSibling.textContent + '\n',
                         { encoding: 'utf-8'}
                     )
-                    continue;
+                    return
                 }
             }
-        })
+        )
     })
     .catch((e) => {
         throw e

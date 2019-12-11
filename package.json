@@ -11,7 +11,6 @@
   "license": "ISC",
   "devDependencies": {
     "@types/jsdom": "^12.2.4",
-    "@types/puppeteer": "^2.0.0",
     "@types/request-promise": "^4.1.45",
     "jsdom": "^15.2.1",
     "request-promise": "^4.2.5",
