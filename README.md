@@ -3,7 +3,7 @@ AtCoder-utils for me!
 
 
 ## Usage
-You can fetch the sample-case and its answer from 'atcoder.jp' through terminal.
+You can fetch the sample-case and its answer from 'atcoder.jp' through terminal, and you can test your code!
 
 ```
 # (You need npm and ts-node)
