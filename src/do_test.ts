@@ -1,8 +1,8 @@
 #!/usr/bin/env ts-node
-import path from 'path'
-import fs from 'fs'
-import child_process from 'child_process'
-import rimraf from 'rimraf'
+import * as path from 'path'
+import * as fs from 'fs'
+import * as child_process from 'child_process'
+import rimraf = require('rimraf')
 
 if (process.argv.length !== 3) {
     console.error("usage: ./do_test.ts <test command>");
@@ -32,8 +32,10 @@ const testCommand = process.argv[2];
                 return
             }
             child_process.execSync(`cat ${inputFile} | ${testCommand} > ${outPath}`)
-            const output = fs.readFileSync(outPath, {encoding: 'utf-8'}).match(/[^\s]+/g)
-            const ans = fs.readFileSync(ansFile, {encoding: 'utf-8'}).match(/[^\s]+/g)
+            const o = fs.readFileSync(outPath, {encoding: 'utf-8'})
+            const a = fs.readFileSync(ansFile, {encoding: 'utf-8'})
+            const output = o.match(/[^\s]+/g)
+            const ans = a.match(/[^\s]+/g)
             if (!ans) {
                 console.error(`no contents in ${ansFile}`)
                 return

@@ -2,7 +2,7 @@
 import requestPromise = require('request-promise');
 import * as jsdom from 'jsdom'
 import * as fs from 'fs'
-import rimraf from 'rimraf'
+import rimraf = require('rimraf')
 
 (() => {
     if (process.argv.length !== 4) {
@@ -14,8 +14,12 @@ import rimraf from 'rimraf'
     const problem = process.argv[3]
 
     const sampleFolder = './samples'
+    const ansFolder = "./answers"
     if (fs.existsSync(sampleFolder)) {
         rimraf.sync(sampleFolder)
+    }
+    if (fs.existsSync(ansFolder)) {
+        rimraf.sync(ansFolder)
     }
 
     const options = {
@@ -43,7 +47,6 @@ import rimraf from 'rimraf'
                     }
                     const outMatch = c.textContent.match(/出力例\s*(\d+)/)
                     if (outMatch) {
-                        const ansFolder = "./answers"
                         if (!fs.existsSync(ansFolder)) {
                             fs.mkdirSync(ansFolder)
                         }
