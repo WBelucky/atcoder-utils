@@ -1,25 +1,16 @@
-#!/usr/bin/env ts-node
 import requestPromise = require('request-promise');
 import * as jsdom from 'jsdom'
 import * as fs from 'fs'
 import rimraf = require('rimraf')
+import { inputDir, ansDir } from './setting';
 
-(() => {
-    if (process.argv.length !== 4) {
-        console.error('usage: ts-node main.ts <contest name> <problem>');
-        return
+export const fetchTest = (contestName: string, problem: string) => {
+
+    if (fs.existsSync(inputDir)) {
+        rimraf.sync(inputDir)
     }
-
-    const contestName = process.argv[2];
-    const problem = process.argv[3]
-
-    const sampleFolder = './samples'
-    const ansFolder = "./answers"
-    if (fs.existsSync(sampleFolder)) {
-        rimraf.sync(sampleFolder)
-    }
-    if (fs.existsSync(ansFolder)) {
-        rimraf.sync(ansFolder)
+    if (fs.existsSync(ansDir)) {
+        rimraf.sync(ansDir)
     }
 
     const options = {
@@ -33,10 +24,10 @@ import rimraf = require('rimraf')
 
                     const inMatch = c.textContent.match(/入力例\s*(\d+)/)
                     if (inMatch) {
-                        if (!fs.existsSync(sampleFolder)) {
-                            fs.mkdirSync(sampleFolder)
+                        if (!fs.existsSync(inputDir)) {
+                            fs.mkdirSync(inputDir)
                         }
-                        const sampleFile = `${sampleFolder}/${inMatch[1]}.txt`
+                        const sampleFile = `${inputDir}/${inMatch[1]}.txt`
                         fs.writeFileSync(
                             sampleFile,
                             c.nextElementSibling.textContent + '\n',
@@ -47,10 +38,10 @@ import rimraf = require('rimraf')
                     }
                     const outMatch = c.textContent.match(/出力例\s*(\d+)/)
                     if (outMatch) {
-                        if (!fs.existsSync(ansFolder)) {
-                            fs.mkdirSync(ansFolder)
+                        if (!fs.existsSync(ansDir)) {
+                            fs.mkdirSync(ansDir)
                         }
-                        const ansFile = `${ansFolder}/${outMatch[1]}.txt`
+                        const ansFile = `${ansDir}/${outMatch[1]}.txt`
                         fs.writeFileSync(
                             ansFile,
                             c.nextElementSibling.textContent + '\n',
@@ -65,4 +56,4 @@ import rimraf = require('rimraf')
         .catch((e) => {
             throw e
         })
-})()
+}

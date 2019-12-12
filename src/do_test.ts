@@ -1,18 +1,10 @@
-#!/usr/bin/env ts-node
 import * as path from 'path'
 import * as fs from 'fs'
 import * as child_process from 'child_process'
 import rimraf = require('rimraf')
+import { outDir, inputDir, ansDir } from './setting';
 
-if (process.argv.length !== 3) {
-    console.error("usage: ./do_test.ts <test command>");
-}
-const testCommand = process.argv[2];
-
-(() => {
-    const inputDir = "./samples"
-    const ansDir = "./answers"
-    const outDir = "./outputs"
+export const runTest = (testCommand: string) => {
     if (fs.existsSync(outDir)) {
         rimraf.sync(outDir)
     }
@@ -51,4 +43,4 @@ const testCommand = process.argv[2];
             }
         }
     })
-})()
+}
