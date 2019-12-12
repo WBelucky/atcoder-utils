@@ -11,5 +11,7 @@ npm install -g ts-node
 
 npm install
 
-ts-node main.ts abc147 d
+./get_test.ts abc147 d
+
+./do_test.ts ./a.out
 ```
