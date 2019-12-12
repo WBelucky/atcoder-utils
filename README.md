@@ -11,10 +11,8 @@ npm install -g ts-node
 
 npm install
 
-make ./bin/get_test
+make
 
-make ./bin/do_test
-
-./bin/get_test abc147 d
-./bin/do_test ./a.out
+./bin/atc fetch abc147 d
+./bin/atc test ./a.out
 ```
