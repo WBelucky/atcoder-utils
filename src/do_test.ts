@@ -2,14 +2,14 @@ import * as path from 'path'
 import * as fs from 'fs'
 import * as child_process from 'child_process'
 import rimraf = require('rimraf')
-import { outDir, inputDir, ansDir } from './setting';
+import { outDir, inputDir, ansDir, color, info } from './setting';
 
 export const runTest = (testCommand: string) => {
     if (fs.existsSync(outDir)) {
         rimraf.sync(outDir)
     }
     fs.mkdirSync(outDir)
-    console.log(`<INFO> testing...`)
+    console.log(`${info} testing...`)
 
     fs.readdir(inputDir, (err, filenames) => {
         if (err) {
@@ -37,9 +37,14 @@ export const runTest = (testCommand: string) => {
                 return
             }
             if (!ans.every((v, i) => output[i] === v)) {
-                console.log(`<RESULT> ==WA== : ${inputFile}`)
+                console.log(`${color.blue}<RESULT>${color.white} ${color.red}==WA==${color.white} : ${inputFile} => ${outPath}`)
+                console.log()
+                console.log(`${info}${color.green} Answer:`)
+                console.log(a)
+                console.log(`${info}${color.red} Your output`)
+                console.log(o)
             } else {
-                console.log(`<RESULT> ==AC== : ${inputFile}`)
+                console.log(`${color.blue}<RESULT>${color.white} ${color.green}==AC==${color.white} : ${inputFile} => ${outPath}`)
             }
         }
     })

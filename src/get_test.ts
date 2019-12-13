@@ -2,7 +2,7 @@ import requestPromise = require('request-promise');
 import * as jsdom from 'jsdom'
 import * as fs from 'fs'
 import rimraf = require('rimraf')
-import { inputDir, ansDir } from './setting';
+import { inputDir, ansDir, info } from './setting';
 
 export const fetchTest = (contestName: string, problem: string) => {
 
@@ -33,7 +33,7 @@ export const fetchTest = (contestName: string, problem: string) => {
                             c.nextElementSibling.textContent + '\n',
                             { encoding: 'utf-8'}
                         )
-                        console.log(`<INFO>: ${sampleFile} has created!`)
+                        console.log(`${info}: ${sampleFile} has created!`)
                         return
                     }
                     const outMatch = c.textContent.match(/出力例\s*(\d+)/)
@@ -47,7 +47,7 @@ export const fetchTest = (contestName: string, problem: string) => {
                             c.nextElementSibling.textContent + '\n',
                             { encoding: 'utf-8'}
                         )
-                        console.log(`<INFO>: ${ansFile} has created!`)
+                        console.log(`${info}: ${ansFile} has created!`)
                         return
                     }
                 }
